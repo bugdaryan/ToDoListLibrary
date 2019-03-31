@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace ToDoListLibrary
 {
-    public class ToDoList:IEnumerable<ToDoItem>
+    public class ToDoList : IEnumerable<ToDoItem>
     {
         #region Public properties
 
@@ -21,7 +21,7 @@ namespace ToDoListLibrary
         {
             if (_todos.Length == _count)
             {
-                ToDoItem[] arr = new ToDoItem[_count*2];
+                ToDoItem[] arr = new ToDoItem[_count * 2];
                 for (int i = 0; i < _todos.Length; i++)
                 {
                     arr[i] = _todos[i];
@@ -30,7 +30,7 @@ namespace ToDoListLibrary
                 _todos = arr;
             }
 
-            _todos[lastAddedIndex+1] = item;
+            _todos[lastAddedIndex + 1] = item;
 
             lastAddedIndex++;
             _count++;
@@ -41,8 +41,8 @@ namespace ToDoListLibrary
         #region Private members
 
         private ToDoItem[] _todos;
-        private int _count;
-        private int lastAddedIndex;
+        private int _count = 0;
+        private int lastAddedIndex = -1;
 
         #endregion
 
@@ -55,10 +55,9 @@ namespace ToDoListLibrary
         public ToDoList(int count)
         {
             _todos = new ToDoItem[count];
-            _count = count;
         }
 
-        public ToDoList():this(1)
+        public ToDoList() : this(1)
         {
         }
         #endregion
