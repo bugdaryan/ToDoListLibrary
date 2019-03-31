@@ -8,9 +8,27 @@ namespace ToDoListLibrary
 {
     public class ToDoList : IEnumerable<ToDoItem>
     {
+        #region Constructors
+
+        public ToDoList(IEnumerable<ToDoItem> todos)
+        {
+            _todos = todos.ToArray();
+        }
+
+        public ToDoList(int count) : this(new ToDoItem[count])
+        {
+        }
+
+        public ToDoList() : this(1)
+        {
+        }
+
+        #endregion
+
         #region Public properties
 
-        public int Count => _count;
+        public int Count { get; private set; } = 0;
+
         public int Capacity => _todos.Length;
 
         #endregion
@@ -19,9 +37,9 @@ namespace ToDoListLibrary
 
         public void PushBack(ToDoItem item)
         {
-            if (_todos.Length == _count)
+            if (_todos.Length == Count)
             {
-                ToDoItem[] arr = new ToDoItem[_count * 2];
+                ToDoItem[] arr = new ToDoItem[Count * 2];
                 for (int i = 0; i < _todos.Length; i++)
                 {
                     arr[i] = _todos[i];
@@ -30,9 +48,9 @@ namespace ToDoListLibrary
                 _todos = arr;
             }
 
-            _todos[_count] = item;
+            _todos[Count] = item;
             
-            _count++;
+            Count++;
         }
 
         public bool Remove(ToDoItem item)
@@ -40,11 +58,9 @@ namespace ToDoListLibrary
             int index = -1;
             for (int i = 0; i < _todos.Length; i++)
             {
-                if (item == _todos[i])
-                {
-                    index = i;
-                    break;
-                }
+                if (item != _todos[i]) continue;
+                index = i;
+                break;
             }
 
             return Remove(index);
@@ -56,42 +72,19 @@ namespace ToDoListLibrary
             {
                 return false;
             }
-            for (int i = index; i < _count - 1; i++)
+            for (int i = index; i < Count - 1; i++)
             {
                 _todos[i] = _todos[i + 1];
             }
 
-            _todos[_count - 1] = null;
-            _count--;
+            _todos[Count - 1] = null;
+            Count--;
             return true;
         }
 
         #endregion
 
-        #region Private members
-
-        private ToDoItem[] _todos;
-        private int _count = 0;
-
-        #endregion
-
-        #region Constructors
-        public ToDoList(IEnumerable<ToDoItem> todos)
-        {
-            _todos = todos.ToArray();
-        }
-
-        public ToDoList(int count)
-        {
-            _todos = new ToDoItem[count];
-        }
-
-        public ToDoList() : this(1)
-        {
-        }
-        #endregion
-
-        #region Overrides
+        #region Overrides and operators
 
         public override bool Equals(object obj)
         {
@@ -123,19 +116,7 @@ namespace ToDoListLibrary
         }
 
         #endregion
-
-        #region Private functions
-
-        public void CheckIndexBounds(int index)
-        {
-            if (index < 0 || index >= _count)
-            {
-                throw new IndexOutOfRangeException("Index is outside of bounds");
-            }
-        }
-
-        #endregion
-
+        
         #region IEnumerable
 
         public IEnumerator<ToDoItem> GetEnumerator()
@@ -147,7 +128,24 @@ namespace ToDoListLibrary
         {
             return GetEnumerator();
         }
+        
+        #endregion
 
+        #region Private members
+
+        private ToDoItem[] _todos;
+
+        #endregion
+
+        #region Private functions
+
+        public void CheckIndexBounds(int index)
+        {
+            if (index < 0 || index >= Count)
+            {
+                throw new IndexOutOfRangeException("Index is outside of bounds");
+            }
+        }
 
         #endregion
     }
