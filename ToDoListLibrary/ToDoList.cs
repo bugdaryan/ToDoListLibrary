@@ -93,18 +93,34 @@ namespace ToDoListLibrary
 
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals(obj as ToDoList);
+        }
+
+        protected bool Equals(ToDoList other)
+        {
+            if (Count != other.Count) return false;
+            for (int i = 0; i < Count; i++)
+            {
+                if (this[i] != other[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            unchecked
+            {
+                return ((_todos != null ? _todos.GetHashCode() : 0) * 397) ^ Count;
+            }
         }
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
 
         public ToDoItem this[int index]
         {
