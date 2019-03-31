@@ -35,7 +35,7 @@ namespace ToDoListLibrary
 
         #region Public functions
 
-        public void PushBack(ToDoItem item)
+        public void Add(ToDoItem item)
         {
             if (_todos.Length == Count)
             {
@@ -77,9 +77,14 @@ namespace ToDoListLibrary
                 _todos[i] = _todos[i + 1];
             }
 
-            _todos[Count - 1] = null;
-            Count--;
-            return true;
+            if(Count != 0)
+            {
+                Count--;
+                _todos[Count] = null;
+                return true;
+            }
+
+            return false;
         }
 
         #endregion
@@ -121,7 +126,10 @@ namespace ToDoListLibrary
 
         public IEnumerator<ToDoItem> GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < Count; i++)
+            {
+                yield return this[i];
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

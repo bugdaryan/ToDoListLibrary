@@ -80,7 +80,7 @@
 
         public override string ToString()
         {
-            return $"{Name}: \n{'{'}\n{Description}\n{'}'}\n";
+            return $"{Name}: \n{'{'}\nDescription:{Description},\nIsActive:{IsDone}\n{'}'}\n";
         }
 
         #endregion
