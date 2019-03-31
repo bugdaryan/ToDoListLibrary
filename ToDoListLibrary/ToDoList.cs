@@ -30,10 +30,40 @@ namespace ToDoListLibrary
                 _todos = arr;
             }
 
-            _todos[lastAddedIndex + 1] = item;
-
-            lastAddedIndex++;
+            _todos[_count] = item;
+            
             _count++;
+        }
+
+        public bool Remove(ToDoItem item)
+        {
+            int index = -1;
+            for (int i = 0; i < _todos.Length; i++)
+            {
+                if (item == _todos[i])
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return Remove(index);
+        }
+
+        public bool Remove(int index)
+        {
+            if (index == -1)
+            {
+                return false;
+            }
+            for (int i = index; i < _count - 1; i++)
+            {
+                _todos[i] = _todos[i + 1];
+            }
+
+            _todos[_count - 1] = null;
+            _count--;
+            return true;
         }
 
         #endregion
@@ -42,7 +72,6 @@ namespace ToDoListLibrary
 
         private ToDoItem[] _todos;
         private int _count = 0;
-        private int lastAddedIndex = -1;
 
         #endregion
 
