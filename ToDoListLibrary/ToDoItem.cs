@@ -31,18 +31,23 @@
         /// The unique id for each item
         /// </summary>
         public int Id { get; }
+
         /// <summary>
         /// Title of the item
         /// </summary>
-        public string Name { get; }
+        public string Name
+        {
+            get => _name;
+            set => _name = System.Text.RegularExpressions.Regex.Replace(value, @"\s+", " ").Trim();
+        }
         /// <summary>
         /// Description of the item
         /// </summary>
-        public string Description { get; }
+        public string Description { get; set; }
         /// <summary>
         /// Boolean property to activate and deactivate item
         /// </summary>
-        public bool IsDone { get; }
+        public bool IsDone { get; set; }
 
         #endregion
 
@@ -51,6 +56,8 @@
         /// Id of the last created instance
         /// </summary>
         private static int _lastId = -1;
+
+        private string _name;
 
         #endregion
 
