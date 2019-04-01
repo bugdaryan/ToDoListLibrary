@@ -3,33 +3,53 @@
     public class ToDoItem
     {
         #region Constructors
-
-        public ToDoItem(string name, string description, bool isDone)
+        /// <summary>
+        /// Constructor with given name, description
+        /// </summary>
+        /// <param name="name">Title of the item</param>
+        /// <param name="description">Description of the item</param>
+        public ToDoItem(string name, string description)
         {
             Id = _lastId + 1;
             _lastId++;
             Name = name;
             Description = description;
-            IsDone = isDone;
-        }
+            IsDone = false;
 
-        public ToDoItem():this("No name","No description", false)
+        }
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ToDoItem():this("No name","No description")
         {
         }
 
         #endregion
 
         #region Public properties
-
+        /// <summary>
+        /// The unique id for each item
+        /// </summary>
         public int Id { get; }
+        /// <summary>
+        /// Title of the item
+        /// </summary>
         public string Name { get; }
+        /// <summary>
+        /// Description of the item
+        /// </summary>
         public string Description { get; }
+        /// <summary>
+        /// Boolean property to activate and deactivate item
+        /// </summary>
         public bool IsDone { get; }
 
         #endregion
 
         #region Private members
-
+        /// <summary>
+        /// Id of the last created instance
+        /// </summary>
         private static int _lastId = -1;
 
         #endregion

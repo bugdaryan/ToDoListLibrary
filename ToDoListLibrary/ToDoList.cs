@@ -9,16 +9,24 @@ namespace ToDoListLibrary
     public class ToDoList : IEnumerable<ToDoItem>
     {
         #region Constructors
-
+        /// <summary>
+        /// Constructor with IEnumerable argument
+        /// </summary>
+        /// <param name="todos"></param>
         public ToDoList(IEnumerable<ToDoItem> todos)
         {
             _todos = todos.ToArray();
         }
-
+        /// <summary>
+        /// Constructor with one integer argument
+        /// </summary>
+        /// <param name="count">Will create an empty list with given capacity</param>
         public ToDoList(int count) : this(new ToDoItem[count])
         {
         }
-
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public ToDoList() : this(1)
         {
         }
@@ -26,15 +34,25 @@ namespace ToDoListLibrary
         #endregion
 
         #region Public properties
-
+        /// <summary>
+        /// Number of elements of the list
+        /// </summary>
         public int Count { get; private set; } = 0;
 
+        /// <summary>
+        /// Number of elements that can be added without resizing initial list 
+        /// </summary>
         public int Capacity => _todos.Length;
 
         #endregion
 
         #region Public functions
-
+        /// <summary>
+        /// Swaps to elements of the list
+        /// </summary>
+        /// <param name="i">First element</param>
+        /// <param name="j">Second Element</param>
+        /// <exception cref="IndexOutOfRangeException">If i or j is outside of bounds</exception>
         public void Swap(int i, int j)
         {
             CheckIndexBounds(i);
@@ -47,7 +65,10 @@ namespace ToDoListLibrary
             }
         }
 
-
+        /// <summary>
+        /// Adds an ToDoItem to the end of the list
+        /// </summary>
+        /// <param name="item">The ToDoItem to be added to the end of the list. The value can be null</param>
         public void Add(ToDoItem item)
         {
             if (_todos.Length == Count)
@@ -66,6 +87,11 @@ namespace ToDoListLibrary
             Count++;
         }
 
+        /// <summary>
+        /// Removes the first occurrence of a specific ToDoItem from the list
+        /// </summary>
+        /// <param name="item">The ToDoItem to remove from the list. The value can be null</param>
+        /// <returns>Returns false if list does not contain the item</returns>
         public bool Remove(ToDoItem item)
         {
             int index = -1;
@@ -76,14 +102,19 @@ namespace ToDoListLibrary
                 break;
             }
 
-            return Remove(index);
+            RemoveAt(index);
+            return true;
         }
 
-        public bool Remove(int index)
+        /// <summary>
+        /// Removes the element at the specified index of the list
+        /// </summary>
+        /// <param name="index">The zero-based index of the element to remove</param>
+        public void RemoveAt(int index)
         {
-            if (index == -1)
+            if (index <= 0 || index >= Count)
             {
-                return false;
+                return;
             }
             for (int i = index; i < Count - 1; i++)
             {
@@ -94,10 +125,7 @@ namespace ToDoListLibrary
             {
                 Count--;
                 _todos[Count] = null;
-                return true;
             }
-
-            return false;
         }
 
         #endregion
@@ -134,7 +162,11 @@ namespace ToDoListLibrary
             }
         }
 
-
+        /// <summary>
+        /// Gets or sets the element at the specified index
+        /// </summary>
+        /// <param name="index">The zero-based index of the element to get or set</param>
+        /// <returns>Returns element at the specified index</returns>
         public ToDoItem this[int index]
         {
             get
@@ -175,8 +207,11 @@ namespace ToDoListLibrary
         #endregion
 
         #region Private functions
-
-        public void CheckIndexBounds(int index)
+        /// <summary>
+        /// Checks if index is valid
+        /// </summary>
+        /// <param name="index">The zero-based index to check</param>
+        private void CheckIndexBounds(int index)
         {
             if (index < 0 || index >= Count)
             {
