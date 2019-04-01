@@ -35,6 +35,19 @@ namespace ToDoListLibrary
 
         #region Public functions
 
+        public void Swap(int i, int j)
+        {
+            CheckIndexBounds(i);
+            CheckIndexBounds(j);
+            if (i != j)
+            {
+                var tmp = _todos[i];
+                _todos[i] = _todos[j];
+                _todos[j] = tmp;
+            }
+        }
+
+
         public void Add(ToDoItem item)
         {
             if (_todos.Length == Count)
