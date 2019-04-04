@@ -87,6 +87,16 @@ namespace ToDoListLibrary
         }
 
         /// <summary>
+        /// Adds an ToDoItem to the end of the list
+        /// </summary>
+        /// <param name="name">Name of the item</param>
+        /// <param name="description">Description of the item</param>
+        public void Add(string name, string description="")
+        {
+            Add(new ToDoItem(name,description));
+        }
+
+        /// <summary>
         /// Removes the first occurrence of a specific ToDoItem from the list
         /// </summary>
         /// <param name="item">The ToDoItem to remove from the list. The value can be null</param>
