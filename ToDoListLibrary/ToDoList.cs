@@ -64,6 +64,14 @@ namespace ToDoListLibrary
             }
         }
 
+        public void AddRange(IEnumerable<ToDoItem> items)
+        {
+            foreach (var item in items)
+            {
+                Add(item);
+            }
+        }
+
         /// <summary>
         /// Adds an ToDoItem to the end of the list
         /// </summary>
@@ -82,7 +90,7 @@ namespace ToDoListLibrary
             }
 
             _todos[Count] = item;
-            
+
             Count++;
         }
 
@@ -91,9 +99,9 @@ namespace ToDoListLibrary
         /// </summary>
         /// <param name="name">Name of the item</param>
         /// <param name="description">Description of the item</param>
-        public void Add(string name, string description="")
+        public void Add(string name, string description = "")
         {
-            Add(new ToDoItem(name,description));
+            Add(new ToDoItem(name, description));
         }
 
         /// <summary>
@@ -130,10 +138,27 @@ namespace ToDoListLibrary
                 _todos[i] = _todos[i + 1];
             }
 
-            if(Count != 0)
+            if (Count != 0)
             {
                 Count--;
                 _todos[Count] = null;
+            }
+        }
+
+        /// <summary>
+        /// Removes all elements from the list
+        /// </summary>
+        public void RemoveAll()
+        {
+            _todos = new ToDoItem[_todos.Length];
+            Count = 0;
+        }
+
+        public void RemoveRange(IEnumerable<ToDoItem> items)
+        {
+            foreach (var item in items)
+            {
+                Remove(item);
             }
         }
 
@@ -180,18 +205,20 @@ namespace ToDoListLibrary
         {
             get
             {
-                CheckIndexBounds(index);
-                return _todos[index];
+                int c = Count - index - 1;
+                CheckIndexBounds(c);
+                return _todos[c];
             }
             set
             {
-                CheckIndexBounds(index);
-                _todos[index] = value;
+                int c = Count - index - 1;
+                CheckIndexBounds(c);
+                _todos[c] = value;
             }
         }
 
         #endregion
-        
+
         #region IEnumerable
 
         public IEnumerator<ToDoItem> GetEnumerator()
@@ -206,7 +233,7 @@ namespace ToDoListLibrary
         {
             return GetEnumerator();
         }
-        
+
         #endregion
 
         #region Private members
