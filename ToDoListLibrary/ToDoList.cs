@@ -47,6 +47,28 @@ namespace ToDoListLibrary
 
         #region Public functions
         /// <summary>
+        /// Removes all tasks from the list, which are completed
+        /// </summary>
+        public void RemoveCompletedItems()
+        {
+            RemoveRange(GetCompletedItems());
+        }
+
+
+        /// <summary>
+        /// Gets a IEnumerable collection of tasks, which are completed
+        /// </summary>
+        /// <returns>IEnumerable<ToDoList></returns>
+        public IEnumerable<ToDoItem> GetCompletedItems()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if(_todos[i].IsDone)
+                 yield return _todos[i];
+            }
+        }
+        
+        /// <summary>
         /// Swaps to elements of the list
         /// </summary>
         /// <param name="i">First element</param>
@@ -64,6 +86,10 @@ namespace ToDoListLibrary
             }
         }
 
+        /// <summary>
+        /// Adds a range of IEnumerable collection of ToDoItem s to list
+        /// </summary>
+        /// <param name="items">Items to be added to the list</param>
         public void AddRange(IEnumerable<ToDoItem> items)
         {
             foreach (var item in items)
