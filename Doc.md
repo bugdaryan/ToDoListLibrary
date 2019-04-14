@@ -46,8 +46,23 @@ list[0].IsDone=true;
 list[4].IsDone=true;
 
 //Printing them to see
-foreach(var item in list.Where(todo => todo.IsDone)
+foreach(var item in list.Where(todo => todo.IsDone))
 {
     Console.WriteLine($"ToDo #{todo.Id}, name:{todo.Name}, description:{todo.description}, is done:{todo.IsDone}");
 }
+
+//Or you can use built in function to get completed items
+foreach(var item in list.GetCompletedItems())
+{
+    Console.WriteLine($"ToDo #{todo.Id}, name:{todo.Name}, description:{todo.description}, is done:{todo.IsDone}");
+}
+
+//Remove completed items
+foreach(var item in list.Where(todo => todo.IsDone))
+{
+    list.Remove(item);
+}
+
+//Or again you can use built in function
+list.RemoveCompletedItems();
 ```
