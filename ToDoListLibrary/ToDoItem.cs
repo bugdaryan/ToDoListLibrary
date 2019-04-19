@@ -20,13 +20,14 @@
         /// <summary>
         /// Default constructor
         /// </summary>
-        public ToDoItem():this("No name","No description")
+        public ToDoItem() : this("No name", "No description")
         {
         }
 
         #endregion
 
         #region Public properties
+
         /// <summary>
         /// The unique id for each item
         /// </summary>
@@ -40,18 +41,26 @@
             get => _name;
             set => _name = System.Text.RegularExpressions.Regex.Replace(value, @"\s+", " ").Trim();
         }
+
         /// <summary>
         /// Description of the item
         /// </summary>
         public string Description { get; set; }
+
         /// <summary>
         /// Boolean property to activate and deactivate item
         /// </summary>
         public bool IsDone { get; set; }
 
+        /// <summary>
+        /// Priority of the item
+        /// </summary>
+        public Priority Priority { get; set; }
+
         #endregion
 
         #region Private members
+
         /// <summary>
         /// Id of the last created instance
         /// </summary>
@@ -87,9 +96,21 @@
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
             return Equals(obj as ToDoItem);
         }
 

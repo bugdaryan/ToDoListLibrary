@@ -63,11 +63,13 @@ namespace ToDoListLibrary
         {
             for (int i = 0; i < Count; i++)
             {
-                if(_todos[i].IsDone)
-                 yield return _todos[i];
+                if (_todos[i].IsDone)
+                {
+                    yield return _todos[i];
+                }
             }
         }
-        
+
         /// <summary>
         /// Swaps to elements of the list
         /// </summary>
@@ -140,7 +142,11 @@ namespace ToDoListLibrary
             int index = -1;
             for (int i = 0; i < _todos.Length; i++)
             {
-                if (item != _todos[i]) continue;
+                if (item != _todos[i])
+                {
+                    continue;
+                }
+
                 index = i;
                 break;
             }
@@ -194,15 +200,31 @@ namespace ToDoListLibrary
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != this.GetType())
+            {
+                return false;
+            }
+
             return Equals(obj as ToDoList);
         }
 
         protected bool Equals(ToDoList other)
         {
-            if (Count != other.Count) return false;
+            if (Count != other.Count)
+            {
+                return false;
+            }
+
             for (int i = 0; i < Count; i++)
             {
                 if (this[i] != other[i])
